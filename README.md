@@ -1,1 +1,1 @@
-I'm learning Rust and I have decided to solve Advent of Code challenges in Rust.
+I'm learning Rust. So, I have decided to have a go at Advent of Code challenges with Rust.
