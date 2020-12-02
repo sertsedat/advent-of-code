@@ -98,14 +98,14 @@ mod tests {
     use super::*;
 
     fn get_input() -> HashSet<u32> {
-        let data = "1721
+        let text = "1721
 979
 366
 299
 675
 1456
 ";
-        generate_input(data)
+        generate_input(text)
     }
 
     #[test]
