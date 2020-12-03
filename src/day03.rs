@@ -6,13 +6,18 @@ pub fn generate_input(input: &str) -> Vec<String> {
 }
 
 pub fn count_encountered_trees(input: &Vec<String>, col_step: &usize, row_step: &usize) -> usize {
-    let (mut row, mut col) = (0, 0);
+    let mut row = 0;
+    let mut col = 0;
     let mut found_trees = 0;
     let total_rows = input.len();
 
-    while row < total_rows {
-        let total_cols = input[row].len();
+    if total_rows == 0 {
+        return 0;
+    }
 
+    let total_cols = input[0].len();
+
+    while row < total_rows {
         if input[row].as_bytes()[col % total_cols] == b'#' {
             found_trees += 1;
         }
