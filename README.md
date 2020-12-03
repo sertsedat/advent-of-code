@@ -4,26 +4,21 @@ I'm using `cargo-aoc` as the helper.
 
 To download inputs 
 
-```
-cargo aoc input
-```
-
-for specific days or years
-
-
-```
-cargo aoc input -d {day} -y {year}
+```sh
+cargo aoc input # for the next day
+cargo aoc input -d {day} # for a specific day
 ```
 
-to run for the latest day
+to run and get the output
 
-```
-cargo aoc
-```
-
-to run benchmarks for the latest day
-
-```
-cargo aoc bench
+```sh
+cargo aoc # for the last day
+cargo aoc -d {day} # for a specific day
 ```
 
+to run benchmarks 
+
+```sh
+cargo aoc bench # for the last implemented day
+cargo aoc bench -d {day} # for a specific day
+```
