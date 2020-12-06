@@ -31,7 +31,7 @@ pub fn generate_input(input: &str) -> Vec<PasswordPolicy> {
 }
 
 /// ```
-/// use advent_of_code_2020::day02::*;
+/// use advent_of_code_2020::day2::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day2.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 625);
@@ -53,7 +53,7 @@ pub fn solve_part1(input: &Vec<PasswordPolicy>) -> usize {
 }
 
 /// ```
-/// use advent_of_code_2020::day02::*;
+/// use advent_of_code_2020::day2::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day2.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 391);

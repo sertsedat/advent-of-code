@@ -28,7 +28,7 @@ pub fn count_encountered_trees(input: &Vec<String>, col_step: &usize, row_step: 
 }
 
 /// ```
-/// use advent_of_code_2020::day03::*;
+/// use advent_of_code_2020::day3::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day3.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 286);
@@ -39,7 +39,7 @@ pub fn solve_part1(input: &Vec<String>) -> usize {
 }
 
 /// ```
-/// use advent_of_code_2020::day03::*;
+/// use advent_of_code_2020::day3::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day3.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 3638606400);

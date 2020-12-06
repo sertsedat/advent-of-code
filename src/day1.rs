@@ -6,7 +6,7 @@ pub fn generate_input(input: &str) -> HashSet<u32> {
 }
 
 /// ```
-/// use advent_of_code_2020::day01::*;
+/// use advent_of_code_2020::day1::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day1.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 864864);
@@ -26,7 +26,7 @@ pub fn solve_part1(input: &HashSet<u32>) -> u32 {
 }
 
 /// ```
-/// use advent_of_code_2020::day01::*;
+/// use advent_of_code_2020::day1::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day1.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 281473080);

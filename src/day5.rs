@@ -37,7 +37,7 @@ fn find_seat(seat: &str) -> u32 {
 }
 
 /// ```
-/// use advent_of_code_2020::day05::*;
+/// use advent_of_code_2020::day5::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day5.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 991);
@@ -48,7 +48,7 @@ pub fn solve_part1(seats: &Vec<u32>) -> u32 {
 }
 
 /// ```
-/// use advent_of_code_2020::day05::*;
+/// use advent_of_code_2020::day5::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day5.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 534);
