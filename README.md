@@ -3,7 +3,7 @@ I'm learning Rust. So, I have decided to have a go at Advent of Code challenges 
 Check out https://adventofcode.com/2020/ to read the puzzles.
 
 
-I'm using `cargo-aoc` as the helper.
+I'm using [cargo-aoc](https://github.com/gobanos/cargo-aoc) as the helper.
 
 To download inputs 
 
