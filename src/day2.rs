@@ -41,9 +41,13 @@ pub fn solve_part1(input: &Vec<PasswordPolicy>) -> usize {
     input
         .iter()
         .filter(|policy| {
-            policy
-                .bounds
-                .contains(&policy.password.matches(policy.letter).count())
+            policy.bounds.contains(
+                &policy
+                    .password
+                    .chars()
+                    .filter(|c| c == &policy.letter)
+                    .count(),
+            )
         })
         .count()
 }
