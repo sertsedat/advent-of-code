@@ -2,29 +2,10 @@ use std::collections::HashSet;
 use std::str::FromStr;
 
 #[derive(Debug, Copy, Clone)]
-pub enum Operation {
-    Accumulate,
-    Jump,
-    Noop,
-}
-
-impl FromStr for Operation {
-    type Err = ();
-
-    fn from_str(op: &str) -> Result<Self, Self::Err> {
-        Ok(match op {
-            "acc" => Operation::Accumulate,
-            "jmp" => Operation::Jump,
-            "nop" => Operation::Noop,
-            _ => return Err(()),
-        })
-    }
-}
-
-#[derive(Debug, Copy, Clone)]
-pub struct Instruction {
-    operation: Operation,
-    argument: i32,
+pub enum Instruction {
+    Accumulate(i32),
+    Jump(i32),
+    Noop(i32),
 }
 
 impl FromStr for Instruction {
@@ -32,10 +13,19 @@ impl FromStr for Instruction {
 
     fn from_str(instruction: &str) -> Result<Self, Self::Err> {
         let instruction: Vec<&str> = instruction.split_whitespace().collect();
+        let operation = instruction[0];
+        let argument = instruction[1];
 
-        Ok(Instruction {
-            operation: instruction[0].parse().unwrap(),
-            argument: instruction[1].parse().unwrap(),
+        let argument = match argument.parse::<i32>() {
+            Ok(n) => n,
+            Err(_) => return Err(()),
+        };
+
+        Ok(match operation {
+            "acc" => Instruction::Accumulate(argument),
+            "jmp" => Instruction::Jump(argument),
+            "nop" => Instruction::Noop(argument),
+            _ => return Err(()),
         })
     }
 }
@@ -63,13 +53,10 @@ impl GameConsole {
             return None;
         }
 
-        let (acc, pc) = match instruction.operation {
-            Operation::Accumulate => (self.accumulated + instruction.argument, counter + 1),
-            Operation::Jump => (
-                self.accumulated,
-                (counter as i32 + instruction.argument) as u32,
-            ),
-            Operation::Noop => (self.accumulated, counter + 1),
+        let (acc, pc) = match instruction {
+            Instruction::Accumulate(argument) => (self.accumulated + argument, counter + 1),
+            Instruction::Jump(argument) => (self.accumulated, (counter as i32 + argument) as u32),
+            Instruction::Noop(_) => (self.accumulated, counter + 1),
         };
         self.accumulated = acc;
         self.pc = counter;
@@ -95,13 +82,13 @@ impl GameConsole {
             let curr_ins = self.instruction_stack[length - 1];
             let prev_ins = self.instruction_stack[length - 2];
 
-            let accumulation = match &curr_ins.operation {
-                Operation::Accumulate => self.accumulated - curr_ins.argument,
+            let accumulation = match &curr_ins {
+                Instruction::Accumulate(argument) => self.accumulated - argument,
                 _ => self.accumulated,
             };
 
-            let pc = match &prev_ins.operation {
-                Operation::Jump => (self.pc as i32 - prev_ins.argument) as u32,
+            let pc = match &prev_ins {
+                Instruction::Jump(argument) => (self.pc as i32 - argument) as u32,
                 _ => self.pc - 1,
             };
 
@@ -112,8 +99,8 @@ impl GameConsole {
 
             let curr_ins = self.instruction_stack.pop().unwrap();
             self.processed.remove(&prev_pc);
-            match curr_ins.operation {
-                Operation::Accumulate => continue,
+            match curr_ins {
+                Instruction::Accumulate(_) => continue,
                 _ => {
                     if let Some(_) = self.tried_converting.get(&prev_pc) {
                         continue;
@@ -171,24 +158,18 @@ pub fn solve_part2(instructions: &Vec<Instruction>) -> i32 {
 
     while i < length as u32 {
         let instruction = &instructions[i as usize];
-        let operation = if should_change_next {
+        let next_instruction = if should_change_next {
             should_change_next = false;
-            match instruction.operation {
-                Operation::Accumulate => Operation::Accumulate,
-                Operation::Jump => Operation::Noop,
-                Operation::Noop => Operation::Jump,
+            match instruction {
+                Instruction::Accumulate(v) => Instruction::Accumulate(*v),
+                Instruction::Jump(v) => Instruction::Noop(*v),
+                Instruction::Noop(v) => Instruction::Jump(*v),
             }
         } else {
-            instruction.operation
+            *instruction
         };
 
-        if let Some(next) = console.execute(
-            i as u32,
-            &Instruction {
-                operation,
-                argument: instruction.argument,
-            },
-        ) {
+        if let Some(next) = console.execute(i as u32, &next_instruction) {
             i = next;
         } else if let Some(next) = console.revert_to_last_breakpoint() {
             i = next;
@@ -219,13 +200,10 @@ pub fn solve_part2_without_stack(instructions: &Vec<Instruction>) -> i32 {
             .enumerate()
             .map(|(j, &instruction)| {
                 if j as i32 == n {
-                    Instruction {
-                        operation: match &instruction.operation {
-                            Operation::Accumulate => Operation::Accumulate,
-                            Operation::Noop => Operation::Jump,
-                            Operation::Jump => Operation::Noop,
-                        },
-                        ..instruction
+                    match &instruction {
+                        Instruction::Accumulate(v) => Instruction::Accumulate(*v),
+                        Instruction::Noop(v) => Instruction::Jump(*v),
+                        Instruction::Jump(v) => Instruction::Noop(*v),
                     }
                 } else {
                     instruction
@@ -247,7 +225,6 @@ pub fn solve_part2_without_stack(instructions: &Vec<Instruction>) -> i32 {
     }
     0
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -280,5 +257,4 @@ acc +6";
 
         assert_eq!(solve_part2(&input), 8)
     }
-
 }
