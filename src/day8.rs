@@ -35,7 +35,6 @@ pub struct GameConsole {
     pc: u32,
     instruction_stack: Vec<Instruction>,
     processed: HashSet<u32>,
-    tried_converting: HashSet<u32>,
 }
 
 impl GameConsole {
@@ -45,7 +44,6 @@ impl GameConsole {
             accumulated: 0,
             instruction_stack: Vec::new(),
             processed: HashSet::new(),
-            tried_converting: HashSet::new(),
         }
     }
     fn execute(&mut self, counter: u32, instruction: &Instruction) -> Option<u32> {
@@ -65,53 +63,6 @@ impl GameConsole {
         self.instruction_stack.push(instruction.clone());
 
         Some(pc)
-    }
-    fn revert_to_last_breakpoint(&mut self) -> Option<u32> {
-        loop {
-            let length = self.instruction_stack.len();
-
-            if length < 2 {
-                self.accumulated = 0;
-                self.pc = 0;
-                self.tried_converting.insert(0);
-                self.instruction_stack.pop();
-                self.processed = HashSet::new();
-                break;
-            }
-
-            let curr_ins = self.instruction_stack[length - 1];
-            let prev_ins = self.instruction_stack[length - 2];
-
-            let accumulation = match &curr_ins {
-                Instruction::Accumulate(argument) => self.accumulated - argument,
-                _ => self.accumulated,
-            };
-
-            let pc = match &prev_ins {
-                Instruction::Jump(argument) => (self.pc as i32 - argument) as u32,
-                _ => self.pc - 1,
-            };
-
-            let prev_pc = self.pc;
-
-            self.pc = pc;
-            self.accumulated = accumulation;
-
-            let curr_ins = self.instruction_stack.pop().unwrap();
-            self.processed.remove(&prev_pc);
-            match curr_ins {
-                Instruction::Accumulate(_) => continue,
-                _ => {
-                    if let Some(_) = self.tried_converting.get(&prev_pc) {
-                        continue;
-                    }
-                }
-            }
-            self.tried_converting.insert(prev_pc);
-            return Some(prev_pc);
-        }
-
-        None
     }
 }
 
@@ -149,67 +100,17 @@ pub fn solve_part1(instructions: &Vec<Instruction>) -> i32 {
 /// let input = fs::read_to_string("input/2020/day8.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 761);
 /// ```
-#[aoc(day8, part2, buggy)]
+#[aoc(day8, part2)]
 pub fn solve_part2(instructions: &Vec<Instruction>) -> i32 {
-    let length: i32 = instructions.len() as i32;
-    let mut i: u32 = 0;
-    let mut console = GameConsole::new();
-    let mut should_change_next = false;
-
-    while i < length as u32 {
-        let instruction = &instructions[i as usize];
-        let next_instruction = if should_change_next {
-            should_change_next = false;
-            match instruction {
-                Instruction::Accumulate(v) => Instruction::Accumulate(*v),
-                Instruction::Jump(v) => Instruction::Noop(*v),
-                Instruction::Noop(v) => Instruction::Jump(*v),
-            }
-        } else {
-            *instruction
-        };
-
-        if let Some(next) = console.execute(i as u32, &next_instruction) {
-            i = next;
-        } else if let Some(next) = console.revert_to_last_breakpoint() {
-            i = next;
-            should_change_next = true;
-        } else if i != (length - 1) as u32 {
-            i = console.revert_to_last_breakpoint().unwrap();
-            should_change_next = true;
-        } else {
-            break;
-        }
-    }
-    console.accumulated
-}
-
-/// ```
-/// use advent_of_code_2020::day8::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day8.txt").unwrap();
-/// assert_eq!(solve_part2_without_stack(&generate_input(&input)), 761);
-/// ```
-#[aoc(day8, part2, without_stack)]
-pub fn solve_part2_without_stack(instructions: &Vec<Instruction>) -> i32 {
     let length: i32 = instructions.len() as i32;
 
     'outer: for n in 0..length {
-        let swapped: Vec<Instruction> = instructions
-            .iter()
-            .enumerate()
-            .map(|(j, &instruction)| {
-                if j as i32 == n {
-                    match &instruction {
-                        Instruction::Accumulate(v) => Instruction::Accumulate(*v),
-                        Instruction::Noop(v) => Instruction::Jump(*v),
-                        Instruction::Jump(v) => Instruction::Noop(*v),
-                    }
-                } else {
-                    instruction
-                }
-            })
-            .collect();
+        let mut swapped: Vec<Instruction> = instructions.clone();
+        let old: Vec<_> = swapped.splice(n as usize..(n+1) as usize, vec![match swapped[n as usize] {
+            Instruction::Accumulate(v) => Instruction::Accumulate(v),
+            Instruction::Noop(v) => Instruction::Jump(v),
+            Instruction::Jump(v) => Instruction::Noop(v),
+        }]).collect();
 
         let mut i: i32 = 0;
         let mut console = GameConsole::new();
