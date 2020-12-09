@@ -76,7 +76,7 @@ fn find_encryption_weakness(input: &[u64], noncompliant_number: u64) -> u64 {
     }
     0
 }
- 
+
 #[cfg(test)]
 mod tests {
     use super::*;
