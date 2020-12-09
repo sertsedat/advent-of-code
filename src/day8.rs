@@ -106,7 +106,7 @@ pub fn solve_part2(instructions: &Vec<Instruction>) -> i32 {
 
     'outer: for n in 0..length {
         let mut swapped: Vec<Instruction> = instructions.clone();
-        let old: Vec<_> = swapped.splice(n as usize..(n+1) as usize, vec![match swapped[n as usize] {
+        let _old: Vec<_> = swapped.splice(n as usize..(n+1) as usize, vec![match swapped[n as usize] {
             Instruction::Accumulate(v) => Instruction::Accumulate(v),
             Instruction::Noop(v) => Instruction::Jump(v),
             Instruction::Jump(v) => Instruction::Noop(v),
