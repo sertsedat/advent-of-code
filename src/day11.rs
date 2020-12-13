@@ -30,7 +30,7 @@ impl From<char> for Seat {
 type Layout = Vec<Vec<Seat>>;
 
 #[aoc_generator(day11)]
-fn generate_input(input: &str) -> Layout {
+pub fn generate_input(input: &str) -> Layout {
     input
         .lines()
         .map(|l| l.chars().map(Seat::from).collect())
@@ -87,7 +87,7 @@ where
 /// assert_eq!(solve_part1(&generate_input(&input)), 2483);
 /// ```
 #[aoc(day11, part1)]
-fn solve_part1(input_layout: &Layout) -> u32 {
+pub fn solve_part1(input_layout: &Layout) -> u32 {
     find_final_seating(input_layout, |layout, seat, (row, column)| {
         let total_occupied_adjacent_seats = DIRECTIONS
             .iter()
@@ -133,7 +133,7 @@ fn find_occupied_adjacent_for_direction(
 /// assert_eq!(solve_part2(&generate_input(&input)), 2285);
 /// ```
 #[aoc(day11, part2)]
-fn solve_part2(input_layout: &Layout) -> u32 {
+pub fn solve_part2(input_layout: &Layout) -> u32 {
     find_final_seating(input_layout, |layout, seat, (row, column)| {
         let total_occupied_adjacent_seats = DIRECTIONS
             .iter()
