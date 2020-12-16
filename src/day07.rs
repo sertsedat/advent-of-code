@@ -30,7 +30,7 @@ fn get_color_and_rest(line: &str) -> Option<(&str, &str)> {
     }
 }
 
-#[aoc_generator(day7, part1)]
+#[aoc_generator(day07, part1)]
 pub fn generate_input_part1(input: &str) -> HashMap<String, HashSet<String>> {
     let mut bags_in: HashMap<String, HashSet<String>> = HashMap::new();
 
@@ -48,12 +48,12 @@ pub fn generate_input_part1(input: &str) -> HashMap<String, HashSet<String>> {
 }
 
 /// ```
-/// use advent_of_code_2020::day7::*;
+/// use advent_of_code_2020::day07::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day7.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input_part1(&input)), 372);
 /// ```
-#[aoc(day7, part1)]
+#[aoc(day07, part1)]
 pub fn solve_part1(input: &HashMap<String, HashSet<String>>) -> usize {
     let mut containing_bags: HashSet<String> = HashSet::new();
 
@@ -76,7 +76,7 @@ pub fn all_containing_colors(
     }
 }
 
-#[aoc_generator(day7, part2)]
+#[aoc_generator(day07, part2)]
 pub fn generate_input_part2(input: &str) -> HashMap<String, HashMap<String, usize>> {
     let mut bags_contain: HashMap<String, HashMap<String, usize>> = HashMap::new();
 
@@ -94,12 +94,12 @@ pub fn generate_input_part2(input: &str) -> HashMap<String, HashMap<String, usiz
 }
 
 /// ```
-/// use advent_of_code_2020::day7::*;
+/// use advent_of_code_2020::day07::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day7.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input_part2(&input)), 8015);
 /// ```
-#[aoc(day7, part2)]
+#[aoc(day07, part2)]
 pub fn solve_part2(input: &HashMap<String, HashMap<String, usize>>) -> usize {
     count_total_bags(input, "shiny gold")
 }

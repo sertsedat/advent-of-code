@@ -1,4 +1,4 @@
-#[aoc_generator(day9)]
+#[aoc_generator(day09)]
 pub fn generate_input(input: &str) -> Vec<u64> {
     input.lines().map(|l| l.parse().unwrap()).collect()
 }
@@ -24,12 +24,12 @@ fn find_noncompliant_number(input: &[u64], preamble: usize) -> u64 {
 }
 
 /// ```
-/// use advent_of_code_2020::day9::*;
+/// use advent_of_code_2020::day09::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day9.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 375054920);
 /// ```
-#[aoc(day9, part1)]
+#[aoc(day09, part1)]
 pub fn solve_part1(input: &[u64]) -> u64 {
     find_noncompliant_number(input, 25)
 }
@@ -51,12 +51,12 @@ fn add_min_max(input: &[u64]) -> u64 {
 }
 
 /// ```
-/// use advent_of_code_2020::day9::*;
+/// use advent_of_code_2020::day09::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day9.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 54142584);
 /// ```
-#[aoc(day9, part2)]
+#[aoc(day09, part2)]
 pub fn solve_part2(input: &[u64]) -> u64 {
     let noncompliant_number: u64 = find_noncompliant_number(input, 25);
     find_encryption_weakness(input, noncompliant_number)

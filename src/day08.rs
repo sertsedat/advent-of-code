@@ -66,18 +66,18 @@ impl GameConsole {
     }
 }
 
-#[aoc_generator(day8)]
+#[aoc_generator(day08)]
 pub fn generate_input(input: &str) -> Vec<Instruction> {
     input.lines().map(|l| l.parse().unwrap()).collect()
 }
 
 /// ```
-/// use advent_of_code_2020::day8::*;
+/// use advent_of_code_2020::day08::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day8.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 1384);
 /// ```
-#[aoc(day8, part1)]
+#[aoc(day08, part1)]
 pub fn solve_part1(instructions: &Vec<Instruction>) -> i32 {
     let length: i32 = instructions.len() as i32;
     let mut i: i32 = 0;
@@ -95,12 +95,12 @@ pub fn solve_part1(instructions: &Vec<Instruction>) -> i32 {
 }
 
 /// ```
-/// use advent_of_code_2020::day8::*;
+/// use advent_of_code_2020::day08::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day8.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 761);
 /// ```
-#[aoc(day8, part2)]
+#[aoc(day08, part2)]
 pub fn solve_part2(instructions: &Vec<Instruction>) -> i32 {
     let length: i32 = instructions.len() as i32;
 

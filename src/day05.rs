@@ -1,4 +1,4 @@
-#[aoc_generator(day5)]
+#[aoc_generator(day05)]
 pub fn generate_input(input: &str) -> Vec<u32> {
     input.lines().map(|line| find_seat(line)).collect()
 }
@@ -37,23 +37,23 @@ fn find_seat(seat: &str) -> u32 {
 }
 
 /// ```
-/// use advent_of_code_2020::day5::*;
+/// use advent_of_code_2020::day05::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day5.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 991);
 /// ```
-#[aoc(day5, part1)]
+#[aoc(day05, part1)]
 pub fn solve_part1(seats: &Vec<u32>) -> u32 {
     *seats.iter().max().unwrap()
 }
 
 /// ```
-/// use advent_of_code_2020::day5::*;
+/// use advent_of_code_2020::day05::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day5.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 534);
 /// ```
-#[aoc(day5, part2)]
+#[aoc(day05, part2)]
 pub fn solve_part2(seats: &Vec<u32>) -> u32 {
     let mut seats = seats.clone();
     seats.sort();

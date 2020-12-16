@@ -110,7 +110,7 @@ impl Passport {
     }
 }
 
-#[aoc_generator(day4)]
+#[aoc_generator(day04)]
 pub fn generate_input(input: &str) -> Vec<Passport> {
     input
         .split("\n\n")
@@ -123,23 +123,23 @@ pub fn generate_input(input: &str) -> Vec<Passport> {
 }
 
 /// ```
-/// use advent_of_code_2020::day4::*;
+/// use advent_of_code_2020::day04::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day4.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 196);
 /// ```
-#[aoc(day4, part1)]
+#[aoc(day04, part1)]
 pub fn solve_part1(input: &Vec<Passport>) -> usize {
     input.len()
 }
 
 /// ```
-/// use advent_of_code_2020::day4::*;
+/// use advent_of_code_2020::day04::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day4.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 167);
 /// ```
-#[aoc(day4, part2)]
+#[aoc(day04, part2)]
 pub fn solve_part2(input: &Vec<Passport>) -> usize {
     input.iter().filter(|passport| passport.is_valid()).count()
 }

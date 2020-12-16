@@ -1,4 +1,4 @@
-#[aoc_generator(day3)]
+#[aoc_generator(day03)]
 pub fn generate_input(input: &str) -> Vec<String> {
     input.lines().map(|line| line.to_string()).collect()
 }
@@ -28,23 +28,23 @@ pub fn count_encountered_trees(input: &Vec<String>, col_step: &usize, row_step: 
 }
 
 /// ```
-/// use advent_of_code_2020::day3::*;
+/// use advent_of_code_2020::day03::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day3.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 286);
 /// ```
-#[aoc(day3, part1)]
+#[aoc(day03, part1)]
 pub fn solve_part1(input: &Vec<String>) -> usize {
     count_encountered_trees(input, &3, &1)
 }
 
 /// ```
-/// use advent_of_code_2020::day3::*;
+/// use advent_of_code_2020::day03::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day3.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 3638606400);
 /// ```
-#[aoc(day3, part2)]
+#[aoc(day03, part2)]
 pub fn solve_part2(input: &Vec<String>) -> usize {
     let slopes: Vec<(usize, usize)> = vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
 

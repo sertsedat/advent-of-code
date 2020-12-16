@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-#[aoc_generator(day6)]
+#[aoc_generator(day06)]
 pub fn generate_input(input: &str) -> Vec<Vec<String>> {
     input
         .split("\n\n")
@@ -9,12 +9,12 @@ pub fn generate_input(input: &str) -> Vec<Vec<String>> {
 }
 
 /// ```
-/// use advent_of_code_2020::day6::*;
+/// use advent_of_code_2020::day06::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day6.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 6782);
 /// ```
-#[aoc(day6, part1)]
+#[aoc(day06, part1)]
 pub fn solve_part1(input: &Vec<Vec<String>>) -> usize {
     input
         .iter()
@@ -23,12 +23,12 @@ pub fn solve_part1(input: &Vec<Vec<String>>) -> usize {
 }
 
 /// ```
-/// use advent_of_code_2020::day6::*;
+/// use advent_of_code_2020::day06::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day6.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 3596);
 /// ```
-#[aoc(day6, part2)]
+#[aoc(day06, part2)]
 pub fn solve_part2(input: &Vec<Vec<String>>) -> usize {
     input
         .iter()

@@ -6,7 +6,7 @@ pub struct PasswordPolicy {
     password: String,
 }
 
-#[aoc_generator(day2)]
+#[aoc_generator(day02)]
 pub fn generate_input(input: &str) -> Vec<PasswordPolicy> {
     input
         .lines()
@@ -31,12 +31,12 @@ pub fn generate_input(input: &str) -> Vec<PasswordPolicy> {
 }
 
 /// ```
-/// use advent_of_code_2020::day2::*;
+/// use advent_of_code_2020::day02::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day2.txt").unwrap();
 /// assert_eq!(solve_part1(&generate_input(&input)), 625);
 /// ```
-#[aoc(day2, part1)]
+#[aoc(day02, part1)]
 pub fn solve_part1(input: &Vec<PasswordPolicy>) -> usize {
     input
         .iter()
@@ -53,12 +53,12 @@ pub fn solve_part1(input: &Vec<PasswordPolicy>) -> usize {
 }
 
 /// ```
-/// use advent_of_code_2020::day2::*;
+/// use advent_of_code_2020::day02::*;
 /// use std::fs;
 /// let input = fs::read_to_string("input/2020/day2.txt").unwrap();
 /// assert_eq!(solve_part2(&generate_input(&input)), 391);
 /// ```
-#[aoc(day2, part2)]
+#[aoc(day02, part2)]
 pub fn solve_part2(input: &Vec<PasswordPolicy>) -> usize {
     input
         .iter()
