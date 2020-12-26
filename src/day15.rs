@@ -28,23 +28,11 @@ fn find_last_spoken_number(numbers: &[i64], target_turn: usize) -> i64 {
     current_number
 }
 
-/// ```
-/// use advent_of_code_2020::day15::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day15.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 273);
-/// ```
 #[aoc(day15, part1)]
 pub fn solve_part1(numbers: &[i64]) -> i64 {
     find_last_spoken_number(numbers, 2020)
 }
 
-/// ```
-/// use advent_of_code_2020::day15::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day15.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 47205);
-/// ```
 #[aoc(day15, part2)]
 pub fn solve_part2(numbers: &[i64]) -> i64 {
     find_last_spoken_number(numbers, 30_000_000)
@@ -52,6 +40,7 @@ pub fn solve_part2(numbers: &[i64]) -> i64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     macro_rules! test_part1 {
         ($($name:ident: $value:expr,)*) => {
@@ -96,4 +85,20 @@ mod tests {
     //     part2_example_6: ("3,2,1", 18),
     //     part2_example_7: ("3,1,2", 362),
     // }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day15.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(273, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day15.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(47205, actual);
+    }
 }

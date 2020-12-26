@@ -8,12 +8,6 @@ pub fn generate_input(input: &str) -> Vec<Vec<String>> {
         .collect()
 }
 
-/// ```
-/// use advent_of_code_2020::day06::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day6.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 6782);
-/// ```
 #[aoc(day06, part1)]
 pub fn solve_part1(input: &Vec<Vec<String>>) -> usize {
     input
@@ -22,12 +16,6 @@ pub fn solve_part1(input: &Vec<Vec<String>>) -> usize {
         .sum()
 }
 
-/// ```
-/// use advent_of_code_2020::day06::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day6.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 3596);
-/// ```
 #[aoc(day06, part2)]
 pub fn solve_part2(input: &Vec<Vec<String>>) -> usize {
     input
@@ -57,6 +45,7 @@ pub fn solve_part2(input: &Vec<Vec<String>>) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     fn get_input() -> Vec<Vec<String>> {
         let text = "abc
@@ -87,5 +76,21 @@ b";
     fn example_part2() {
         let input = get_input();
         assert_eq!(solve_part2(&input), 6);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day6.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(6782, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day6.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(3596, actual);
     }
 }

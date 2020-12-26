@@ -95,12 +95,6 @@ pub fn generate_input_part1(input: &str) -> Vec<Vec<String>> {
         .collect()
 }
 
-/// ```
-/// use advent_of_code_2020::day18::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day18.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input_part1(&input)), 6640667297513);
-/// ```
 #[aoc(day18, part1)]
 pub fn solve_part1(input: &Vec<Vec<String>>) -> u64 {
     input.iter().map(|postfix| evaluate_postfix(postfix)).sum()
@@ -118,12 +112,6 @@ pub fn generate_input_part2(input: &str) -> Vec<Vec<String>> {
         .collect()
 }
 
-/// ```
-/// use advent_of_code_2020::day18::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day18.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input_part1(&input)), 6640667297513);
-/// ```
 #[aoc(day18, part2)]
 pub fn solve_part2(input: &Vec<Vec<String>>) -> u64 {
     input.iter().map(|postfix| evaluate_postfix(postfix)).sum()
@@ -132,6 +120,7 @@ pub fn solve_part2(input: &Vec<Vec<String>>) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     #[test]
     fn example_part1() {
@@ -159,5 +148,21 @@ mod tests {
         let actual = solve_part2(&input);
 
         assert_eq!(694122, actual);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day18.txt").unwrap();
+        let input = generate_input_part1(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(6640667297513, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day18.txt").unwrap();
+        let input = generate_input_part2(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(451589894841552, actual);
     }
 }

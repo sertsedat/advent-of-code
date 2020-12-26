@@ -47,12 +47,6 @@ pub fn generate_input_part1(input: &str) -> HashMap<String, HashSet<String>> {
     bags_in
 }
 
-/// ```
-/// use advent_of_code_2020::day07::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day7.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input_part1(&input)), 372);
-/// ```
 #[aoc(day07, part1)]
 pub fn solve_part1(input: &HashMap<String, HashSet<String>>) -> usize {
     let mut containing_bags: HashSet<String> = HashSet::new();
@@ -93,12 +87,6 @@ pub fn generate_input_part2(input: &str) -> HashMap<String, HashMap<String, usiz
     bags_contain
 }
 
-/// ```
-/// use advent_of_code_2020::day07::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day7.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input_part2(&input)), 8015);
-/// ```
 #[aoc(day07, part2)]
 pub fn solve_part2(input: &HashMap<String, HashMap<String, usize>>) -> usize {
     count_total_bags(input, "shiny gold")
@@ -119,6 +107,7 @@ fn count_total_bags(input: &HashMap<String, HashMap<String, usize>>, color: &str
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     #[test]
     fn example_part1() {
@@ -171,5 +160,21 @@ dark violet bags contain no other bags.
 
         let actual = solve_part2(&input);
         assert_eq!(actual, 126);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day7.txt").unwrap();
+        let input = generate_input_part1(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(372, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day7.txt").unwrap();
+        let input = generate_input_part2(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(8015, actual);
     }
 }

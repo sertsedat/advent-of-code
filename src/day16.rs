@@ -99,12 +99,6 @@ pub fn generate_input(input: &str) -> Train {
     }
 }
 
-/// ```
-/// use advent_of_code_2020::day16::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day16.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 23122);
-/// ```
 #[aoc(day16, part1)]
 pub fn solve_part1(train: &Train) -> u32 {
     train
@@ -114,12 +108,6 @@ pub fn solve_part1(train: &Train) -> u32 {
         .sum()
 }
 
-/// ```
-/// use advent_of_code_2020::day16::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day16.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 362974212989);
-/// ```
 #[aoc(day16, part2)]
 pub fn solve_part2(train: &Train) -> u64 {
     let valid_nearby_tickets: Vec<&Ticket> = train
@@ -169,6 +157,7 @@ pub fn solve_part2(train: &Train) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     #[test]
     fn example_part1() {
@@ -206,5 +195,21 @@ nearby tickets:
         let input = generate_input(text);
         let actual = solve_part2(&input);
         assert_eq!(actual, 13);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day16.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(23122, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day16.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(362974212989, actual);
     }
 }

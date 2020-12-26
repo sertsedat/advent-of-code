@@ -80,12 +80,6 @@ pub fn generate_input(input: &str) -> Vec<Instruction> {
     input.lines().map(|l| l.parse().unwrap()).collect()
 }
 
-/// ```
-/// use advent_of_code_2020::day12::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day12.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 820);
-/// ```
 #[aoc(day12, part1)]
 pub fn solve_part1(instructions: &Vec<Instruction>) -> u32 {
     let mut ferry = Ferry::new();
@@ -134,12 +128,6 @@ impl Waypoint {
     }
 }
 
-/// ```
-/// use advent_of_code_2020::day12::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day12.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 66614);
-/// ```
 #[aoc(day12, part2)]
 pub fn solve_part2(instructions: &Vec<Instruction>) -> u32 {
     let mut waypoint = Waypoint::new(10, 1);
@@ -157,7 +145,7 @@ pub fn solve_part2(instructions: &Vec<Instruction>) -> u32 {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    use std::fs;
     fn get_input() -> Vec<Instruction> {
         let text = "F10
 N3
@@ -182,5 +170,21 @@ F11
 
         let actual = solve_part2(&input);
         assert_eq!(actual, 286);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day12.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(820, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day12.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(66614, actual);
     }
 }

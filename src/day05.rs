@@ -36,23 +36,11 @@ fn find_seat(seat: &str) -> u32 {
     row.0 * 8 + column.0
 }
 
-/// ```
-/// use advent_of_code_2020::day05::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day5.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 991);
-/// ```
 #[aoc(day05, part1)]
 pub fn solve_part1(seats: &Vec<u32>) -> u32 {
     *seats.iter().max().unwrap()
 }
 
-/// ```
-/// use advent_of_code_2020::day05::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day5.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 534);
-/// ```
 #[aoc(day05, part2)]
 pub fn solve_part2(seats: &Vec<u32>) -> u32 {
     let mut seats = seats.clone();
@@ -70,6 +58,7 @@ pub fn solve_part2(seats: &Vec<u32>) -> u32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     macro_rules! test_part1 {
         ($($name:ident: $value:expr,)*) => {
@@ -88,5 +77,21 @@ mod tests {
         sample_2: ("BFFFBBFRRR", 567),
         sample_3: ("FFFBBBFRRR", 119),
         sample_4: ("BBFFBBFRLL", 820),
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day5.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(991, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day5.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(534, actual);
     }
 }

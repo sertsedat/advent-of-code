@@ -80,12 +80,6 @@ where
         .count() as u32
 }
 
-/// ```
-/// use advent_of_code_2020::day11::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day11.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 2483);
-/// ```
 #[aoc(day11, part1)]
 pub fn solve_part1(input_layout: &Layout) -> u32 {
     find_final_seating(input_layout, |layout, seat, (row, column)| {
@@ -126,12 +120,6 @@ fn find_occupied_adjacent_for_direction(
     }
 }
 
-/// ```
-/// use advent_of_code_2020::day11::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day11.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 2285);
-/// ```
 #[aoc(day11, part2)]
 pub fn solve_part2(input_layout: &Layout) -> u32 {
     find_final_seating(input_layout, |layout, seat, (row, column)| {
@@ -153,6 +141,7 @@ pub fn solve_part2(input_layout: &Layout) -> u32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     fn get_input() -> Layout {
         let text = "L.LL.LL.LL
@@ -181,5 +170,21 @@ L.LLLLL.LL";
         let input = get_input();
         let actual = solve_part2(&input);
         assert_eq!(actual, 26);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day11.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(2483, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day11.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(2285, actual);
     }
 }

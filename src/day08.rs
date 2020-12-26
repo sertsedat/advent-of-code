@@ -71,12 +71,6 @@ pub fn generate_input(input: &str) -> Vec<Instruction> {
     input.lines().map(|l| l.parse().unwrap()).collect()
 }
 
-/// ```
-/// use advent_of_code_2020::day08::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day8.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 1384);
-/// ```
 #[aoc(day08, part1)]
 pub fn solve_part1(instructions: &Vec<Instruction>) -> i32 {
     let length: i32 = instructions.len() as i32;
@@ -94,12 +88,6 @@ pub fn solve_part1(instructions: &Vec<Instruction>) -> i32 {
     console.accumulated
 }
 
-/// ```
-/// use advent_of_code_2020::day08::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day8.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 761);
-/// ```
 #[aoc(day08, part2)]
 pub fn solve_part2(instructions: &Vec<Instruction>) -> i32 {
     let length: i32 = instructions.len() as i32;
@@ -135,6 +123,7 @@ pub fn solve_part2(instructions: &Vec<Instruction>) -> i32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     fn get_input() -> Vec<Instruction> {
         let text = "nop +0
@@ -162,5 +151,21 @@ acc +6";
         let input = get_input();
 
         assert_eq!(solve_part2(&input), 8)
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day8.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(1384, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day8.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(761, actual);
     }
 }

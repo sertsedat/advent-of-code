@@ -9,12 +9,6 @@ pub fn generate_input(input: &str) -> Vec<u64> {
     input
 }
 
-/// ```
-/// use advent_of_code_2020::day10::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day10.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 2812);
-/// ```
 #[aoc(day10, part1)]
 pub fn solve_part1(input: &Vec<u64>) -> u64 {
     let mut ones = 0;
@@ -56,12 +50,6 @@ fn total_combinations(
     combinations
 }
 
-/// ```
-/// use advent_of_code_2020::day10::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day10.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 386869246296064);
-/// ```
 #[aoc(day10, part2)]
 pub fn solve_part2(input: &Vec<u64>) -> u64 {
     let device_jolt = input[input.len() - 1];
@@ -74,6 +62,7 @@ pub fn solve_part2(input: &Vec<u64>) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     fn get_input_1() -> Vec<u64> {
         let text = "16
@@ -155,5 +144,21 @@ mod tests {
 
         let actual = solve_part2(&input);
         assert_eq!(actual, 19208);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day10.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(2812, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day10.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(386869246296064, actual);
     }
 }

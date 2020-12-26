@@ -23,12 +23,6 @@ fn find_noncompliant_number(input: &[u64], preamble: usize) -> u64 {
     0
 }
 
-/// ```
-/// use advent_of_code_2020::day09::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day9.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 375054920);
-/// ```
 #[aoc(day09, part1)]
 pub fn solve_part1(input: &[u64]) -> u64 {
     find_noncompliant_number(input, 25)
@@ -50,12 +44,6 @@ fn add_min_max(input: &[u64]) -> u64 {
     return min + max;
 }
 
-/// ```
-/// use advent_of_code_2020::day09::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day9.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 54142584);
-/// ```
 #[aoc(day09, part2)]
 pub fn solve_part2(input: &[u64]) -> u64 {
     let noncompliant_number: u64 = find_noncompliant_number(input, 25);
@@ -80,6 +68,7 @@ fn find_encryption_weakness(input: &[u64], noncompliant_number: u64) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     fn get_input() -> Vec<u64> {
         let text = "35
@@ -120,5 +109,21 @@ mod tests {
         let noncompliant_number = find_noncompliant_number(&input, 5);
         let actual = find_encryption_weakness(&input, noncompliant_number);
         assert_eq!(actual, 62)
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day9.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(375054920, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day9.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(54142584, actual);
     }
 }

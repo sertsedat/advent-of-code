@@ -35,12 +35,6 @@ pub fn generate_input_part2(input: &str) -> Vec<BusLine> {
     bus_lines
 }
 
-/// ```
-/// use advent_of_code_2020::day13::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day13.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input_part1(&input)), 259);
-/// ```
 #[aoc(day13, part1)]
 pub fn solve_part1((timestamp, bus_lines): &(u64, Vec<u64>)) -> u64 {
     let bus_lines = bus_lines;
@@ -58,12 +52,6 @@ pub fn solve_part1((timestamp, bus_lines): &(u64, Vec<u64>)) -> u64 {
     }
 }
 
-/// ```
-/// use advent_of_code_2020::day13::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day13.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input_part2(&input)), 210612924879242);
-/// ```
 #[aoc(day13, part2)]
 pub fn solve_part2(bus_lines: &Vec<BusLine>) -> u64 {
     let mut t = 0;
@@ -85,7 +73,7 @@ pub fn solve_part2(bus_lines: &Vec<BusLine>) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    use std::fs;
     #[test]
     fn example_part1() {
         let text = "939
@@ -128,5 +116,21 @@ mod tests {
 
         let actual = solve_part2(&input);
         assert_eq!(actual, 754018);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day13.txt").unwrap();
+        let input = generate_input_part1(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(259, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day13.txt").unwrap();
+        let input = generate_input_part2(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(210612924879242, actual);
     }
 }

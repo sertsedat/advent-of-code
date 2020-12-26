@@ -160,12 +160,6 @@ pub fn generate_input(input: &str) -> (u8, Vec<Cell>) {
     )
 }
 
-/// ```
-/// use advent_of_code_2020::day17::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day17.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 202);
-/// ```
 #[aoc(day17, part1)]
 pub fn solve_part1((n, input): &(u8, Vec<Cell>)) -> u16 {
     let mut grid = Grid::new(input, *n, 3);
@@ -173,12 +167,6 @@ pub fn solve_part1((n, input): &(u8, Vec<Cell>)) -> u16 {
     grid.count_active()
 }
 
-/// ```
-/// use advent_of_code_2020::day17::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day17.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 2028);
-/// ```
 #[aoc(day17, part2)]
 pub fn solve_part2((n, input): &(u8, Vec<Cell>)) -> u16 {
     let mut grid = Grid::new(input, *n, 4);
@@ -189,6 +177,7 @@ pub fn solve_part2((n, input): &(u8, Vec<Cell>)) -> u16 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     fn get_input() -> (u8, Vec<Cell>) {
         let text = ".#.
@@ -210,5 +199,21 @@ mod tests {
         let input = get_input();
         let actual = solve_part2(&input);
         assert_eq!(actual, 848);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day17.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(202, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day17.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(2028, actual);
     }
 }

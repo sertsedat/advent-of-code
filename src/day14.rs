@@ -58,12 +58,6 @@ pub fn generate_input(input: &str) -> Vec<Instruction> {
         .collect()
 }
 
-/// ```
-/// use advent_of_code_2020::day14::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day14.txt").unwrap();
-/// assert_eq!(solve_part1(&generate_input(&input)), 7997531787333);
-/// ```
 #[aoc(day14, part1)]
 pub fn solve_part1(instructions: &[Instruction]) -> u64 {
     let mut memory = HashMap::new();
@@ -87,12 +81,6 @@ pub fn solve_part1(instructions: &[Instruction]) -> u64 {
     memory.values().sum()
 }
 
-/// ```
-/// use advent_of_code_2020::day14::*;
-/// use std::fs;
-/// let input = fs::read_to_string("input/2020/day14.txt").unwrap();
-/// assert_eq!(solve_part2(&generate_input(&input)), 3564822193820);
-/// ```
 #[aoc(day14, part2)]
 pub fn solve_part2(instructions: &[Instruction]) -> u64 {
     let mut memory: HashMap<u64, u64> = HashMap::new();
@@ -154,6 +142,7 @@ fn write_to_permutated_addresses(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     #[test]
     fn example_part1() {
@@ -179,5 +168,21 @@ mem[26] = 1
 
         let actual = solve_part2(&input);
         assert_eq!(actual, 208);
+    }
+
+    #[test]
+    fn test_input_part1() {
+        let text = fs::read_to_string("input/2020/day14.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part1(&input);
+        assert_eq!(7997531787333, actual);
+    }
+
+    #[test]
+    fn test_input_part2() {
+        let text = fs::read_to_string("input/2020/day14.txt").unwrap();
+        let input = generate_input(&text);
+        let actual = solve_part2(&input);
+        assert_eq!(3564822193820, actual);
     }
 }
