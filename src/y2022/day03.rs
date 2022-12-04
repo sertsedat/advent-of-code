@@ -1,12 +1,6 @@
 use itertools::Itertools;
 use std::collections::HashSet;
 
-static ITEMS: [char; 52] = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-];
-
 #[aoc_generator(day03)]
 pub fn generate_input(input: &str) -> Vec<Vec<char>> {
     input
@@ -16,7 +10,11 @@ pub fn generate_input(input: &str) -> Vec<Vec<char>> {
 }
 
 fn value_of_item(item: &char) -> u32 {
-    ITEMS.iter().position(|c| c == item).unwrap() as u32 + 1
+    match item {
+        'a'..='z' => *item as u32 - b'a' as u32 + 1,
+        'A'..='Z' => *item as u32 - b'A' as u32 + 27,
+        _ => panic!("corrupt intput"),
+    }
 }
 
 #[aoc(day03, part1)]
