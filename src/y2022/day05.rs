@@ -77,33 +77,47 @@ fn top_crates(crates: &Vec<Vec<char>>) -> String {
         .to_string()
 }
 
+fn move_one(crates: &mut Vec<Vec<char>>, from: usize, to: usize) {
+    let crate_to_move = crates[from].pop().expect("input wasn't parsed correctly");
+    crates[to].push(crate_to_move);
+}
+
 #[aoc(day05, part1)]
 pub fn solve_part1((crates, instructions): &(Vec<Vec<char>>, Vec<Instruction>)) -> String {
     let mut crates: Vec<Vec<char>> = crates.clone();
 
     instructions.iter().for_each(|instruction| {
         for _ in 0..instruction.amount {
-            let crate_to_move = crates[instruction.from]
-                .pop()
-                .expect("input wasn't parsed correctly");
-            crates[instruction.to].push(crate_to_move);
+            move_one(&mut crates, instruction.from, instruction.to);
         }
     });
 
     top_crates(&crates)
 }
 
+fn move_multiple(crates: &mut Vec<Vec<char>>, from: usize, to: usize, amount: usize) {
+    let from_crate = &crates[from];
+    let remove_range = (from_crate.len() - amount)..from_crate.len();
+
+    let mut crates_to_move: Vec<char> = crates[from].drain(remove_range).collect();
+    crates[to].append(&mut crates_to_move);
+}
+
 #[aoc(day05, part2)]
 pub fn solve_part2((crates, instructions): &(Vec<Vec<char>>, Vec<Instruction>)) -> String {
     let mut crates: Vec<Vec<char>> = crates.clone();
 
-    instructions.iter().for_each(|instruction| {
-        let from_crate = &crates[instruction.from];
-        let remove_range = (from_crate.len() - instruction.amount)..from_crate.len();
-
-        let mut crates_to_move: Vec<char> = crates[instruction.from].drain(remove_range).collect();
-        crates[instruction.to].append(&mut crates_to_move);
-    });
+    instructions
+        .iter()
+        .for_each(|instruction| match instruction.amount {
+            1 => move_one(&mut crates, instruction.from, instruction.to),
+            _ => move_multiple(
+                &mut crates,
+                instruction.from,
+                instruction.to,
+                instruction.amount,
+            ),
+        });
 
     top_crates(&crates)
 }
