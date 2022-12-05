@@ -1,4 +1,4 @@
-use std::{ops::RangeInclusive};
+use std::ops::RangeInclusive;
 
 #[aoc_generator(day04)]
 pub fn generate_input(input: &str) -> Vec<(RangeInclusive<u32>, RangeInclusive<u32>)> {
