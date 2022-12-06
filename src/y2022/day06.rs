@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 use itertools::Itertools;
 
 #[aoc_generator(day06)]
@@ -11,12 +9,7 @@ fn find_first_marker(input: &Vec<char>, window_size: usize) -> usize {
     let (i, _) = input
         .windows(window_size)
         .enumerate()
-        .filter(|(_, window)| {
-            let hashed: HashSet<&char> = window.iter().collect();
-            hashed.len() == window_size
-        })
-        .take(1)
-        .exactly_one()
+        .find(|(_, window)| window.iter().unique().count() == window_size)
         .unwrap();
     i + window_size
 }
