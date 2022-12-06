@@ -2,36 +2,30 @@ use itertools::Itertools;
 
 #[aoc_generator(day06)]
 pub fn generate_input(input: &str) -> Vec<char> {
-    input.chars().collect_vec()
+    input.chars().collect()
 }
 
 fn find_first_marker(input: &Vec<char>, window_size: usize) -> usize {
-    let (i, _) = input
+    input
         .windows(window_size)
-        .enumerate()
-        .find(|(_, window)| window.iter().unique().count() == window_size)
-        .unwrap();
-    i + window_size
+        .position(|window| window.iter().unique().count() == window_size)
+        .unwrap()
+        + window_size
 }
 
 #[aoc(day06, part1)]
 pub fn solve_part1(input: &Vec<char>) -> usize {
-    let window_size = 4;
-
-    find_first_marker(input, window_size)
+    find_first_marker(input, 4)
 }
 
 #[aoc(day06, part2)]
 pub fn solve_part2(input: &Vec<char>) -> usize {
-    let window_size = 14;
-
-    find_first_marker(input, window_size)
+    find_first_marker(input, 14)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::fs;
 
     fn get_input() -> Vec<char> {
         generate_input("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw")
@@ -53,17 +47,17 @@ mod tests {
 
     #[test]
     fn test_input_part1() {
-        let text = fs::read_to_string("input/2022/day6.txt").unwrap();
-        let input = generate_input(&text);
+        let input = generate_input(include_str!("../../input/2022/day6.txt"));
         let result = solve_part1(&input);
+
         assert_eq!(result, 1262);
     }
 
     #[test]
     fn test_input_part2() {
-        let text = fs::read_to_string("input/2022/day6.txt").unwrap();
-        let input = generate_input(&text);
+        let input = generate_input(include_str!("../../input/2022/day6.txt"));
         let result = solve_part2(&input);
+
         assert_eq!(result, 3444);
     }
 }
